@@ -11,8 +11,8 @@ import { Play } from "lucide-react";
 
 export const MovieCarousel = () => {
   return (
-    <div className="h-[600px] w-7xl">
-      <Carousel className="w-screen">
+    <div className="h-[600px] w-7xl flex flex-col items-center">
+      <Carousel className="w-[1440px]">
         <CarouselContent>
           {slides.map((item, index) => (
             <CarouselItem key={index}>
