@@ -7,13 +7,13 @@ import { ChevronRight } from 'lucide-react';
 
 export const Header = () => {
   return (
-    <div className="w-[1440px] h-[59px] flex justify-center items-center">
-      <div className="w-screen h-9 flex justify-between items-center  gap-8 pl-10 pr-10">
-        <div className="h-5 w-[92px] flex gap-2">
-          <img src="/film.png" className=" w-5 h-5"></img>
-          <img src="/Movie Z.png"></img>
+    <header className="w-full flex justify-center border-b border-[#E4E4E7]">
+      <div className="w-full h-[59px] flex items-center justify-between px-4">
+        <div className="flex gap-2 items-center">
+          <img src="/film.png" className="w-5 h-5" />
+          <img src="/Movie Z.png" className="h-5" />
         </div>
-        <div className="flex h-9 w-[488px] gap-2 items-center">
+        <div className="hidden md:flex h-9 w-[488px] gap-2 items-center">
           <NavigationMenu>
             <NavigationMenuItem>
               <NavigationMenuTrigger className="px-4 py-2 text-sm font-medium border border-[#E4E4E7]">
@@ -21,17 +21,18 @@ export const Header = () => {
               </NavigationMenuTrigger>
 
               <NavigationMenuContent className="border border-[#E4E4E7] w-[577px] h-[333px] bg-white p-5">
-                <div className="flex flex-col w-[577px] h-[333px]">
+                <div className="flex flex-col w-full h-full">
                   <p className="text-[24px] font-semibold">Genres</p>
                   <p className="text-[16px] font-light">See lists of movies by genre</p>
-
                   <div className="w-full h-px bg-[#777785] mt-5 mb-5"></div>
 
-
-                  <div className=" flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 w-[500px] h-[333px]">
                     {genres.map((item, index) => (
-                      <p key={index} className="text-sm hover:underline cursor-pointer h-5 border border-[#E4E4E7] rounded-lg text-[12px] font-semibold px-2 flex">
-                        {item.name} <ChevronRight className="h-4 w-4" />
+                      <p
+                        key={index}
+                        className="text-sm hover:underline cursor-pointer flex items-center gap-1 border border-[#E4E4E7] rounded-lg text-[12px] font-semibold px-2 py-1">
+                        {item.name}
+                        <ChevronRight className="h-4 w-4" />
                       </p>
                     ))}
                   </div>
@@ -39,25 +40,27 @@ export const Header = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
           </NavigationMenu>
-
-          <div className="flex items-center gap-2 px-2 py-1 w-[379px] h-9 border border-[#E4E4E7] rounded">
+          <div className="flex items-center gap-2 px-2 py-1 w-60 h-9 border border-[#E4E4E7] rounded">
             <Search className="w-5 h-5 text-gray-500" />
-
             <Input
               className="flex-1 border-none focus-visible:ring-0 shadow-none"
               placeholder="Search"
             />
           </div>
         </div>
-        <div>
+        <div className="flex items-center gap-4">
+          <button className="md:hidden">
+            <Search className="h-5 w-5 text-gray-700" />
+          </button>
           <Button variant="outline" className="w-9 h-9 p-0">
-            <img src="/Vector (1).png" className="h-4 w-4"></img>
+            <img src="/Vector (1).png" className="h-4 w-4" />
           </Button>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
+
 const genres = [
   {
     name: "Action"

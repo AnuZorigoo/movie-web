@@ -11,17 +11,17 @@ import { Play } from "lucide-react";
 
 export const MovieCarousel = () => {
   return (
-    <div className="h-[600px] w-7xl flex flex-col items-center">
-      <Carousel className="w-[1440px]">
+    <div className="h-[600px] flex flex-col items-center">
+      <Carousel className="w-full">
         <CarouselContent>
           {slides.map((item, index) => (
             <CarouselItem key={index}>
-              <div className="relative">
+              <div className="relative ">
                 <div className="p-1">
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="h-[600px] w-full object-cover rounded"
+                    className="w-full aspect-5/2  object-cover rounded inset-0 "
                   />
                 </div>
                 <div className="h-[404px] w-[264px] gap-4 z-30 flex flex-col absolute bottom-10 left-30 text-[#FAFAFA]">
