@@ -10,7 +10,7 @@ export type MovieCardProps = {
 
 export const MovieCard = ({ movie }: MovieCardProps) => {
   return (
-    <Card className="flex flex-col bg-secondary rounded overflow-hidden">
+    <Card className="flex flex-col bg-secondary rounded overflow-hidden content-between justify-between">
       <div className="w-full aspect-[2/3]">
         <img
           src={"https://image.tmdb.org/t/p/w500/" + movie.poster_path}

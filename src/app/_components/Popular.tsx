@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { MovieCard } from "./MovieCard";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export type Movie = {
   id: number;
@@ -11,7 +14,7 @@ export type Movie = {
   overview: string;
   popularity: number;
   poster_path: string;
-  release_dat: string;
+  release_date: string;
   title: string;
   video: boolean;
   vote_average: number;
@@ -29,10 +32,10 @@ export const Popular = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
-    const getData = async () => {
+    const fetchData = async () => {
       try {
         const res = await fetch(
-          "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
+          "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
           {
             headers: {
               accept: "application/json",
@@ -41,21 +44,32 @@ export const Popular = () => {
             },
           }
         );
-        const data = (await res.json()) as Response;
 
+        const data: Response = await res.json();
         setMovies(data.results);
       } catch (error) {
         console.log(error);
       }
     };
-    getData();
+
+    fetchData();
   }, []);
 
   return (
-    <div className="grid grid-cols-4 gap-3 w-full">
-      {movies.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} />
-      ))}
+    <div className="w-full mx-auto flex flex-col gap-10">
+      <div className="w-full mx-auto flex justify-between items-center px-4">
+        <p className="font-semibold text-[24px]">Popular</p>
+        <Link href="/popularpage">
+          <Button variant="secondary" className="flex items-center gap-2">
+            See more <ArrowRight className="h-4 w-4" />
+          </Button>
+        </Link>
+      </div>
+      <div className="grid grid-cols-2  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 w-full">
+        {movies.map((movie) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+      </div>
     </div>
   );
 };
