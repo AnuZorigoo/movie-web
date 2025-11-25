@@ -19,6 +19,7 @@ export type Movie = {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  runtime: number;
 };
 
 type Response = {
@@ -67,8 +68,8 @@ export const UpComing = () => {
       </div>
 
       <div className="grid  grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5  gap-3 w-full">
-        {movies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
+        {movies?.map((movie) => (
+          <MovieCard key={movie.id} movie={movie} id={movie.id} />
         ))}
       </div>
     </div>
