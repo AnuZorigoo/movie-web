@@ -3,8 +3,23 @@
 import { Footer } from "@/app/_components/Footer";
 import { Header } from "@/app/_components/Header";
 import { Movie } from "@/app/_components/UpComing";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 import { use, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
+import { MovieCard } from "@/app/_components/MovieCard";
+
+type CastMember = {
+  id: number;
+  name: string;
+  character: string;
+};
+
+type CrewMember = {
+  id: number;
+  name: string;
+  job: string;
+};
 
 const MovieDetailPage = ({
   params,
@@ -14,6 +29,10 @@ const MovieDetailPage = ({
   const { movieId } = use(params);
   const [movie, setMovie] = useState<Movie>();
   const [video, setVideo] = useState<string>("");
+  const [more, setMore] = useState<Movie>();
+
+  const [cast, setCast] = useState<CastMember[]>([]);
+  const [crew, setCrew] = useState<CrewMember[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,20 +59,51 @@ const MovieDetailPage = ({
           }
         );
 
-        const data = await res.json();
+        const castRes = await fetch(
+          `https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`,
+          {
+            headers: {
+              accept: "application/json",
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNGFmYmVhZGExOGMxNTUzM2E2MDQ0OWZlOTA1NWE2YiIsIm5iZiI6MTc2MzUyMzMwNC4zMTQsInN1YiI6IjY5MWQzYWU4ZTdkOTBmYjA0MGZjMWQyYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.h3XN8YvwLBISzrh3ZLkaoNFCrHhUO1LPaVAYjq_oDsE",
+            },
+          }
+        );
+        const moreRes = await fetch(
+          `https://api.themoviedb.org/3/movie/${movieId}/similar?language=en-US&page=1`,
+          {
+            headers: {
+              accept: "application/json",
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNGFmYmVhZGExOGMxNTUzM2E2MDQ0OWZlOTA1NWE2YiIsIm5iZiI6MTc2MzUyMzMwNC4zMTQsInN1YiI6IjY5MWQzYWU4ZTdkOTBmYjA0MGZjMWQyYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.h3XN8YvwLBISzrh3ZLkaoNFCrHhUO1LPaVAYjq_oDsE",
+            },
+          }
+        );
 
-        console.log(data);
+        const data = await res.json();
         const videoData = await videoRes.json();
-        console.log(videoData?.results[0].key);
+        const castData = await castRes.json();
+        const moreData = await moreRes.json();
 
         setMovie(data);
         setVideo(videoData?.results[0].key);
+        setCast(castData.cast || []);
+        setCrew(castData.crew || []);
+        setMore(moreData);
+
+        console.log(moreData);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
   }, []);
+
+  const directors = crew.filter((p) => p.job === "Director");
+  const writers = crew.filter(
+    (p) => p.job === "Writer" || p.job === "Screenplay" || p.job === "Story"
+  );
+  const topStars = cast.slice(0, 3);
 
   return (
     <div className="flex flex-col items-center gap-20">
@@ -94,19 +144,43 @@ const MovieDetailPage = ({
           </div>
         </div>
         <div className="h-[271px] w-[1080px] gap-5 flex-col flex">
-          <div>{movie?.genre_ids}</div>
+          <div className="flex gap-2">
+            {movie?.genres?.map((g) => (
+              <span
+                key={g.id}
+                className="px-3 py-1 rounded-full border text-[12px] font-semibold"
+              >
+                {g.name}
+              </span>
+            ))}
+          </div>
           <div>{movie?.overview}</div>
-          <div>
+          <div className="flex gap-[53px]">
             <p className="text-[16px] font-bold">Director</p>
-            <p></p>
+            <p>{directors.map((d) => d.name).join(", ")}</p>
           </div>
-          <div>
+          <div className="flex gap-[53px]">
             <p className="text-[16px] font-bold">Writers</p>
-            <p></p>
+            <p>{writers.map((w) => w.name).join(", ")}</p>
           </div>
-          <div>
+          <div className="flex gap-[53px]">
             <p className="text-[16px] font-bold">Stars</p>
-            <p></p>
+            <p className="text-[16px]">
+              {topStars.map((s) => s.name).join(", ")}
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-col gap-8">
+          <div className="flex justify-between w-[1080px]">
+            <p className="text-[24px] font-semibold">More like this</p>
+            <Button variant="secondary">
+              See more <ArrowRight className="h-4 w-4" />
+            </Button>
+          </div>
+          <div className="grid  grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5  gap-3 w-[1080px]">
+            {more?.results.slice(0, 5).map((movie: Movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
           </div>
         </div>
       </div>

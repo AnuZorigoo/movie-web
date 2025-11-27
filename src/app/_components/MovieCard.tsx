@@ -5,17 +5,17 @@ import { url } from "inspector";
 import { Movie } from "./UpComing";
 import Link from "next/link";
 
-export const MovieCard = ({ movie, id }: any) => {
+export const MovieCard = ({ movie }: any) => {
   return (
-    <Link rel="preload" href={`/movie/${id}`}>
-      <Card className="flex flex-col bg-secondary rounded overflow-hidden content-between justify-between">
+    <Link rel="preload" href={`/movie/${movie.id}`}>
+      <Card className="flex flex-col bg-secondary rounded overflow-hidden">
         <div className="w-full aspect-[2/3]">
           <img
             src={"https://image.tmdb.org/t/p/w500/" + movie.poster_path}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover "
           />
         </div>
-        <CardFooter className="flex flex-col gap-2 items-start p-4">
+        <CardFooter className="flex flex-col gap-1 items-start h-[150px]">
           <div className="flex items-center gap-1">
             <img src="/Vector (2).png" className="h-4 w-4" />
             <p>{movie.vote_average}</p>

@@ -20,6 +20,9 @@ export type Movie = {
   vote_average: number;
   vote_count: number;
   runtime: number;
+  cast: string;
+  crew: string;
+  genres: [];
 };
 
 type Response = {
@@ -69,7 +72,7 @@ export const UpComing = () => {
 
       <div className="grid  grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5  gap-3 w-full">
         {movies?.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} id={movie.id} />
+          <MovieCard key={movie.id} movie={movie} />
         ))}
       </div>
     </div>

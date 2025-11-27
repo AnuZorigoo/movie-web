@@ -2,10 +2,48 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import { NavigationMenuItem, NavigationMenu, NavigationMenuTrigger, NavigationMenuContent } from "@/components/ui/navigation-menu";
-import { ChevronRight } from 'lucide-react';
+import {
+  NavigationMenuItem,
+  NavigationMenu,
+  NavigationMenuTrigger,
+  NavigationMenuContent,
+} from "@/components/ui/navigation-menu";
+import { ChevronRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+
+export type Genres = {
+  id: number;
+  name: string;
+};
 
 export const Header = () => {
+  const [genres, setGenres] = useState<Genres[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(
+          "https://api.themoviedb.org/3/genre/movie/list?language=en",
+          {
+            headers: {
+              accept: "application/json",
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNGFmYmVhZGExOGMxNTUzM2E2MDQ0OWZlOTA1NWE2YiIsIm5iZiI6MTc2MzUyMzMwNC4zMTQsInN1YiI6IjY5MWQzYWU4ZTdkOTBmYjA0MGZjMWQyYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.h3XN8YvwLBISzrh3ZLkaoNFCrHhUO1LPaVAYjq_oDsE",
+            },
+          }
+        );
+
+        const data = (await res.json()) as { genres: Genres[] };
+
+        setGenres(data.genres);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <header className="w-full flex justify-center border-b border-[#E4E4E7]">
       <div className="w-full h-[59px] flex items-center justify-between px-4">
@@ -23,18 +61,23 @@ export const Header = () => {
               <NavigationMenuContent className="border border-[#E4E4E7] w-[577px] h-[333px] bg-white p-5">
                 <div className="flex flex-col w-full h-full">
                   <p className="text-[24px] font-semibold">Genres</p>
-                  <p className="text-[16px] font-light">See lists of movies by genre</p>
+                  <p className="text-[16px] font-light">
+                    See lists of movies by genre
+                  </p>
                   <div className="w-full h-px bg-[#777785] mt-5 mb-5"></div>
 
                   <div className="flex flex-wrap gap-2 w-[500px] h-[333px]">
-                    {genres.map((item, index) => (
-                      <p
-                        key={index}
-                        className="text-sm hover:underline cursor-pointer flex items-center gap-1 border border-[#E4E4E7] rounded-lg text-[12px] font-semibold px-2 py-1">
-                        {item.name}
-                        <ChevronRight className="h-4 w-4" />
-                      </p>
-                    ))}
+                    <Link>
+                      {genres.map((genre) => (
+                        <p
+                          key={genre.id}
+                          className="text-sm hover:underline cursor-pointer flex items-center gap-1 border border-[#E4E4E7] rounded-lg text-[12px] font-semibold px-2 py-1"
+                        >
+                          {genre.name}
+                          <ChevronRight className="h-4 w-4" />
+                        </p>
+                      ))}
+                    </Link>
                   </div>
                 </div>
               </NavigationMenuContent>
@@ -60,82 +103,3 @@ export const Header = () => {
     </header>
   );
 };
-
-const genres = [
-  {
-    name: "Action"
-  },
-  {
-    name: "Adventure"
-  },
-  {
-    name: "Animation"
-  },
-  {
-    name: "Biography"
-  },
-  {
-    name: "Comedy"
-  },
-  {
-    name: "Crime"
-  },
-  {
-    name: "Documentary"
-  },
-  {
-    name: "Drama"
-  },
-  {
-    name: "Family"
-  },
-  {
-    name: "Fantasy"
-  },
-  {
-    name: "Film-Noir"
-  },
-  {
-    name: "Game-Show"
-  },
-  {
-    name: "History"
-  },
-  {
-    name: "Horror"
-  },
-  {
-    name: "Music"
-  },
-  {
-    name: "Musical"
-  },
-  {
-    name: "Mystery"
-  },
-  {
-    name: "News"
-  },
-  {
-    name: "Reality-TV"
-  },
-  {
-    name: "Romance"
-  }, {
-    name: "Sci-Fi"
-  }, {
-    name: "Short"
-  }, {
-    name: "Sport"
-  }, {
-    name: "Talk-Show"
-  }, {
-    name: "Thriller"
-  }, {
-    name: "War"
-  },
-  {
-    name: "Western"
-  },
-
-]
