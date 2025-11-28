@@ -8,6 +8,7 @@ import { ArrowRight } from "lucide-react";
 import { use, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import { MovieCard } from "@/app/_components/MovieCard";
+import Link from "next/link";
 
 type CastMember = {
   id: number;
@@ -173,6 +174,7 @@ const MovieDetailPage = ({
         <div className="flex flex-col gap-8">
           <div className="flex justify-between w-[1080px]">
             <p className="text-[24px] font-semibold">More like this</p>
+
             <Button variant="secondary">
               See more <ArrowRight className="h-4 w-4" />
             </Button>

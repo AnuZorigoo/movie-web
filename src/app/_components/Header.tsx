@@ -67,17 +67,22 @@ export const Header = () => {
                   <div className="w-full h-px bg-[#777785] mt-5 mb-5"></div>
 
                   <div className="flex flex-wrap gap-2 w-[500px] h-[333px]">
-                    <Link>
-                      {genres.map((genre) => (
-                        <p
+                    {genres.map((genre) => (
+                      <Link
+                        rel="preload"
+                        href={`/genres/${genre.id}`}
+                        key={genre.id}
+                      >
+                        <div
                           key={genre.id}
                           className="text-sm hover:underline cursor-pointer flex items-center gap-1 border border-[#E4E4E7] rounded-lg text-[12px] font-semibold px-2 py-1"
                         >
-                          {genre.name}
+                          <p> {genre?.name + "ll"}</p>
+
                           <ChevronRight className="h-4 w-4" />
-                        </p>
-                      ))}
-                    </Link>
+                        </div>
+                      </Link>
+                    ))}
                   </div>
                 </div>
               </NavigationMenuContent>
