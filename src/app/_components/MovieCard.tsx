@@ -2,7 +2,7 @@ import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { url } from "inspector";
-import { Movie } from "./UpComing";
+import { Movie } from "./MovieSection";
 import Link from "next/link";
 
 export const MovieCard = ({ movie }: any) => {
