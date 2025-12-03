@@ -89,14 +89,20 @@ const MovieDetailPage = ({
         const castData = await castRes.json();
         const moreData = await moreRes.json();
 
+        const teaser = videoData?.results?.filter(
+          (item) => item.type.toLowerCase() === "trailer"
+        )[0];
+
+        setVideo(teaser?.key);
+
         setMovie(data);
-        setVideo(videoData?.results[0].key);
+
         setCast(castData.cast || []);
         setCrew(castData.crew || []);
         setMore(moreData);
         setLoading(false);
 
-        console.log(moreData);
+        console.log(videoData);
       } catch (error) {
         console.log(error);
       }

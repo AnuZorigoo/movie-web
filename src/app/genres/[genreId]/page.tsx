@@ -6,6 +6,9 @@ import { Movie } from "@/app/_components/MovieCarousel";
 import { MovieCard } from "@/app/_components/MovieCard";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { PaginationSection } from "@/app/_components/PaginationSection";
+import { Skeleton } from "@/components/ui/skeleton";
+import { MovieCardSkeleton } from "@/app/_components/MovieCardSkeleton";
 
 type Genres = {
   id: number;
@@ -20,6 +23,9 @@ const MovieGenresPage = ({
   const { genreId } = use(params);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<Genres[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,9 +55,10 @@ const MovieGenresPage = ({
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const res = await fetch(
-          `https://api.themoviedb.org/3/discover/movie?language=en&with_genres=${genreId}&page=${1}`,
+          `https://api.themoviedb.org/3/discover/movie?language=en&with_genres=${genreId}&page=${currentPage}`,
           {
             headers: {
               accept: "application/json",
@@ -64,14 +71,17 @@ const MovieGenresPage = ({
         const data = await res.json();
 
         setMovies(data.results);
+        setTotalPages(data.total_pages);
 
         console.log(data.results);
+
+        setLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-  }, [genreId]);
+  }, [genreId, currentPage]);
 
   return (
     <div className="flex flex-col gap-8 items-center">
@@ -100,13 +110,27 @@ const MovieGenresPage = ({
               ))}
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 w-[806px]">
-            {movies.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))}
-          </div>
+          {loading && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 w-[806px]">
+              {Array.from({ length: 20 }).map((_, index) => (
+                <MovieCardSkeleton key={index} />
+              ))}
+            </div>
+          )}
+          {!loading && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 w-[806px]">
+              {movies.map((movie) => (
+                <MovieCard key={movie.id} movie={movie} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
+      <PaginationSection
+        currentPage={currentPage}
+        totalPages={totalPages}
+        setCurrentPage={setCurrentPage}
+      />
 
       <Footer />
     </div>
