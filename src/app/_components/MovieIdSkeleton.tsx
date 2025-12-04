@@ -16,9 +16,9 @@ export function MovieIdSkeleton() {
         <div className="flex justify-between"></div>
       </Skeleton>
       <Skeleton className=" w-[1080px] gap-5 flex-col flex">
-        <div className="flex gap-2"></div>
+        <Skeleton className="flex gap-2"></Skeleton>
 
-        <div className="flex gap-[53px]"></div>
+        <Skeleton className="flex gap-[53px]"></Skeleton>
         <div className="flex gap-[53px]"></div>
         <div className="flex gap-[53px]">
           <p className="text-[16px]"></p>

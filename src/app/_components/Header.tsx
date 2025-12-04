@@ -121,7 +121,10 @@ export const Header = () => {
 
                   <div className="flex flex-wrap gap-2 w-[500px] h-[333px]">
                     {genres.map((genre) => (
-                      <Link href={`/genres/${genre.id}`} key={genre.id}>
+                      <Link
+                        href={`/genres?genreIds=${genre.id}`}
+                        key={genre.id}
+                      >
                         <div className="text-sm hover:underline cursor-pointer flex items-center gap-1 border border-[#E4E4E7] dark:border-gray-700 rounded-lg text-[12px] font-semibold px-2 py-1">
                           <p>{genre.name}</p>
                           <ChevronRight className="h-4 w-4" />

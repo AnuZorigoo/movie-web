@@ -3,7 +3,7 @@ import { Phone } from "lucide-react";
 
 export const Footer = () => {
   return (
-    <div className="w-full bg-[#4338CA] text-white py-8">
+    <div className="w-full bg-[#4338CA] text-white py-8 mt-7">
       <div className="w-full max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-start px-4 md:items-center gap-8 md:gap-0">
         <div className="flex flex-col gap-3">
           <div className="flex gap-2 items-center">

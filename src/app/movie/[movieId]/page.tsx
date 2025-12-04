@@ -1,7 +1,5 @@
 "use client";
 
-import { Footer } from "@/app/_components/Footer";
-import { Header } from "@/app/_components/Header";
 import { Movie } from "@/app/_components/MovieSection";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -118,7 +116,6 @@ const MovieDetailPage = ({
 
   return (
     <div className="flex flex-col items-center gap-20">
-      <Header />
       {loading && <MovieIdSkeleton />}
       {!loading && (
         <div className="flex flex-col items-center top-[191px] gap-6">
@@ -201,7 +198,6 @@ const MovieDetailPage = ({
           </div>
         </div>
       )}
-      <Footer />
     </div>
   );
 };

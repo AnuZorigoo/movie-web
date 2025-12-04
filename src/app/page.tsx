@@ -8,13 +8,9 @@ import { MoviesSection } from "./_components/MovieSection";
 export default function Home() {
   return (
     <div className="flex bg-zinc-50 font-sans flex-col items-center gap-[42px] dark:bg-black">
-      <Header />
-
       <MovieCarousel />
 
       <MoviesSection />
-
-      <Footer />
     </div>
   );
 }

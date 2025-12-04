@@ -3,8 +3,6 @@ import { MoviesSection } from "@/app/_components/MovieSection";
 import { useEffect, useState } from "react";
 import { MovieCard } from "@/app/_components/MovieCard";
 import { Button } from "@/components/ui/button";
-import { Header } from "@/app/_components/Header";
-import { Footer } from "@/app/_components/Footer";
 import { PaginationSection } from "@/app/_components/PaginationSection";
 
 import { use } from "react";
@@ -58,8 +56,6 @@ const CategoryPage = ({
 
   return (
     <div className="w-full mx-auto flex flex-col gap-10 pt-10">
-      <Header />
-
       <div className="w-full mx-auto flex justify-between items-center px-4">
         <p className="font-semibold text-[24px]">
           {categoryName
@@ -87,8 +83,6 @@ const CategoryPage = ({
         totalPages={totalPages}
         setCurrentPage={setCurrentPage}
       />
-
-      <Footer />
     </div>
   );
 };

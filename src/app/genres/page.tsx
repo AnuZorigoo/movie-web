@@ -1,6 +1,5 @@
 "use client";
-import { Footer } from "@/app/_components/Footer";
-import { Header } from "@/app/_components/Header";
+
 import { use, useEffect, useState } from "react";
 import { Movie } from "@/app/_components/MovieCarousel";
 import { MovieCard } from "@/app/_components/MovieCard";
@@ -9,6 +8,8 @@ import Link from "next/link";
 import { PaginationSection } from "@/app/_components/PaginationSection";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MovieCardSkeleton } from "@/app/_components/MovieCardSkeleton";
+import { GenreList } from "@/app/_components/GenreList";
+import { MoviesByGenre } from "@/app/_components/MovieByGenre";
 
 type Genres = {
   id: number;
@@ -85,7 +86,6 @@ const MovieGenresPage = ({
 
   return (
     <div className="flex flex-col gap-8 items-center">
-      <Header />
       <div className="w-[1080px] flex flex-col gap-8 ">
         <div className="w-full flex justify-between">
           <p className="text-[30px] font-semibold">Search filter</p>
@@ -96,19 +96,7 @@ const MovieGenresPage = ({
             <p className="text-[16px] font-normal">
               See lists of movies by genre
             </p>
-            <div className="flex flex-wrap gap-2 w-[272px] h-[333px]">
-              {genres?.map((genre) => (
-                <Link href={`/genres/${genre.id}`} key={genre.id}>
-                  <div
-                    key={genre.id}
-                    className="text-sm hover:underline cursor-pointer flex items-center gap-1 border border-[#E4E4E7] rounded-lg text-[12px] font-semibold px-2 py-1"
-                  >
-                    <p>{genre.name}</p>
-                    <ChevronRight className="h-4 w-4" />
-                  </div>
-                </Link>
-              ))}
-            </div>
+            <GenreList />
           </div>
           {loading && (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 w-[806px]">
@@ -117,22 +105,9 @@ const MovieGenresPage = ({
               ))}
             </div>
           )}
-          {!loading && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 w-[806px]">
-              {movies.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
-              ))}
-            </div>
-          )}
+          {!loading && <MoviesByGenre />}
         </div>
       </div>
-      <PaginationSection
-        currentPage={currentPage}
-        totalPages={totalPages}
-        setCurrentPage={setCurrentPage}
-      />
-
-      <Footer />
     </div>
   );
 };

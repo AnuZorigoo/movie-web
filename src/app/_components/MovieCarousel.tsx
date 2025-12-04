@@ -121,7 +121,7 @@ export const MovieCarousel = () => {
                       : "/fallback.jpg"
                   }
                   alt={item.title}
-                  className="w-full h-[700px] object-cover rounded"
+                  className="w-full h-[800px] object-cover rounded"
                 />
 
                 <div className="absolute bottom-10 left-10 z-20 flex flex-col gap-3 text-white max-w-[350px]">

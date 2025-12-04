@@ -2,8 +2,6 @@
 import { use, useEffect, useState } from "react";
 import { Movie } from "@/app/_components/MovieSection";
 import { MovieCard } from "../../_components/MovieCard";
-import { Header } from "@/app/_components/Header";
-import { Footer } from "@/app/_components/Footer";
 import { PaginationSection } from "@/app/_components/PaginationSection";
 import { Response } from "@/app/category/[categoryName]/page";
 
@@ -43,7 +41,6 @@ const MoreLikeThisPage = ({
 
   return (
     <div className="w-full mx-auto flex flex-col gap-10 pt-10">
-      <Header />
       <div className="w-full mx-auto flex justify-between items-center px-4">
         <p className="font-semibold text-[24px]">More Like this</p>
       </div>
@@ -57,7 +54,6 @@ const MoreLikeThisPage = ({
         totalPages={totalPages}
         setCurrentPage={setCurrentPage}
       />
-      <Footer />
     </div>
   );
 };
