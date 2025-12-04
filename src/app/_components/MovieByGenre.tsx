@@ -31,7 +31,7 @@ export const MoviesByGenre = () => {
             },
           }
         );
-        const data: Response = (await res.json()) as Response;
+        const data = await res.json();
 
         setMovies(data.results);
         setTotalPages(data.total_pages);
@@ -44,7 +44,7 @@ export const MoviesByGenre = () => {
       }
     };
     fetchData();
-  }, [genreIds.join()]);
+  }, [genreIds.join(), currentPage]);
 
   return (
     <div className="w-[1080px] flex flex-col gap-8 ">
@@ -55,11 +55,13 @@ export const MoviesByGenre = () => {
           ))}
         </div>
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 w-[806px]">
-        {movies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
-      </div>
+      {!loading && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 w-[806px]">
+          {movies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </div>
+      )}
       <PaginationSection
         currentPage={currentPage}
         totalPages={totalPages}
