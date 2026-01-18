@@ -5,6 +5,11 @@ import { Badge, ChevronRight } from "lucide-react";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+type MovieGenre = {
+  id: number;
+  name: string;
+};
+
 export const GenreList = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -34,7 +39,7 @@ export const GenreList = () => {
             Authorization:
               "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNGFmYmVhZGExOGMxNTUzM2E2MDQ0OWZlOTA1NWE2YiIsIm5iZiI6MTc2MzUyMzMwNC4zMTQsInN1YiI6IjY5MWQzYWU4ZTdkOTBmYjA0MGZjMWQyYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.h3XN8YvwLBISzrh3ZLkaoNFCrHhUO1LPaVAYjq_oDsE",
           },
-        }
+        },
       );
 
       const data = await res.json();
