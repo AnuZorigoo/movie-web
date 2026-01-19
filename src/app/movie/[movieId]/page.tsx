@@ -47,7 +47,7 @@ const MovieDetailPage = ({
               Authorization:
                 "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNGFmYmVhZGExOGMxNTUzM2E2MDQ0OWZlOTA1NWE2YiIsIm5iZiI6MTc2MzUyMzMwNC4zMTQsInN1YiI6IjY5MWQzYWU4ZTdkOTBmYjA0MGZjMWQyYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.h3XN8YvwLBISzrh3ZLkaoNFCrHhUO1LPaVAYjq_oDsE",
             },
-          }
+          },
         );
 
         const videoRes = await fetch(
@@ -58,7 +58,7 @@ const MovieDetailPage = ({
               Authorization:
                 "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNGFmYmVhZGExOGMxNTUzM2E2MDQ0OWZlOTA1NWE2YiIsIm5iZiI6MTc2MzUyMzMwNC4zMTQsInN1YiI6IjY5MWQzYWU4ZTdkOTBmYjA0MGZjMWQyYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.h3XN8YvwLBISzrh3ZLkaoNFCrHhUO1LPaVAYjq_oDsE",
             },
-          }
+          },
         );
 
         const castRes = await fetch(
@@ -69,7 +69,7 @@ const MovieDetailPage = ({
               Authorization:
                 "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNGFmYmVhZGExOGMxNTUzM2E2MDQ0OWZlOTA1NWE2YiIsIm5iZiI6MTc2MzUyMzMwNC4zMTQsInN1YiI6IjY5MWQzYWU4ZTdkOTBmYjA0MGZjMWQyYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.h3XN8YvwLBISzrh3ZLkaoNFCrHhUO1LPaVAYjq_oDsE",
             },
-          }
+          },
         );
         const moreRes = await fetch(
           `https://api.themoviedb.org/3/movie/${movieId}/similar?language=en-US&page=1`,
@@ -79,7 +79,7 @@ const MovieDetailPage = ({
               Authorization:
                 "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNGFmYmVhZGExOGMxNTUzM2E2MDQ0OWZlOTA1NWE2YiIsIm5iZiI6MTc2MzUyMzMwNC4zMTQsInN1YiI6IjY5MWQzYWU4ZTdkOTBmYjA0MGZjMWQyYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.h3XN8YvwLBISzrh3ZLkaoNFCrHhUO1LPaVAYjq_oDsE",
             },
-          }
+          },
         );
 
         const data = await res.json();
@@ -88,7 +88,7 @@ const MovieDetailPage = ({
         const moreData = await moreRes.json();
 
         const teaser = videoData?.results?.filter(
-          (item) => item.type.toLowerCase() === "trailer"
+          (item) => item.type.toLowerCase() === "trailer",
         )[0];
 
         setVideo(teaser?.key);
@@ -110,7 +110,7 @@ const MovieDetailPage = ({
 
   const directors = crew.filter((p) => p.job === "Director");
   const writers = crew.filter(
-    (p) => p.job === "Writer" || p.job === "Screenplay" || p.job === "Story"
+    (p) => p.job === "Writer" || p.job === "Screenplay" || p.job === "Story",
   );
   const topStars = cast.slice(0, 3);
 
@@ -155,7 +155,7 @@ const MovieDetailPage = ({
           </div>
           <div className=" w-[1080px] gap-5 flex-col flex">
             <div className="flex gap-2">
-              {movie?.genres?.map((g) => (
+              {movie?.genres?.map((g: { id: number; name: string }) => (
                 <span
                   key={g.id}
                   className="px-3 py-1 rounded-full border text-[12px] font-semibold"
